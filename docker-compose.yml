@@ -1,0 +1,23 @@
+services:
+  simulator:
+    build: .
+    container_name: telemetry_simulator
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8003:8000"
+    volumes:
+      - .:/app
+    restart: always
+    networks:
+      - shared_net
+    environment:
+      - DEBUG=1
+      # IMEI Configuration - one of the following must be set:
+      - DEVICE_IMEI=352099001761481
+      # - DEVICE_IMEI_LIST=352099001761481,352099001761482
+      # - ALLOW_GENERATE_IMEI=true
+
+networks:
+  shared_net:
+    external: true
+

@@ -1,0 +1,11 @@
+# Configuración de desarrollo (usado automáticamente si existe)
+# Copia los valores de docker-compose.yml pero permite personalización local
+
+services:
+  simulator:
+    # Habilita el modo desarrollo con recarga automática
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    environment:
+      - DEBUG=1
+      - LOG_LEVEL=DEBUG
+
