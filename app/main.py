@@ -96,33 +96,17 @@ async def health_check():
 
 @app.websocket("/ws/telemetria")
 async def websocket_endpoint(websocket: WebSocket):
-    """
-    WebSocket endpoint for telemetry data streaming
-    
-    Connects to ws://localhost:8000/ws/telemetria
-    Receives JSON data every 5 seconds with simulated telemetry values
-    
-    Returns:
-        - JSON with timestamp and telemetry data including:
-            - Ignition status, movement status, speed, GPS location
-            - RPM, engine temperature, engine load
-            - Oil level, fuel level, fuel consumption
-            - OBD faults, odometer readings
-            - Event types and G-values
+    """WebSocket endpoint for telemetry data streaming.
+
+    Connects to ws://localhost:8000/ws/telemetria. Streams JSON every 5
+    seconds with simulated telemetry values:
+    - Ignition status, movement status, speed, GPS location
+    - RPM, engine temperature, engine load
+    - Oil level, fuel level, fuel consumption
+    - OBD faults, odometer readings
+    - Event types and G-values
     """
     await websocket_telemetry_endpoint(websocket)
-
-
-@app.on_event("startup")
-async def startup_event():
-    """Additional startup tasks if needed"""
-    logger.info("Iniciando servicios adicionales...")
-
-
-@app.on_event("shutdown")
-async def shutdown_event():
-    """Cleanup tasks on shutdown"""
-    logger.info("Cerrando servicios...")
 
 
 if __name__ == "__main__":
